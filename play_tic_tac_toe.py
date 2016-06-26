@@ -2,6 +2,7 @@ import random
 import sys
 
 def main():
+	"""The main function. Takes user input (whether x/o, and move firsy y/n. Calls start_game()) """
 	print "Welcome to Tic Tac Toe 1.0"
 
 	user_sign = raw_input("Choose x or o. x/o: ").upper()
@@ -27,9 +28,12 @@ def main():
 	start_game(user_sign, computer_sign, computer_moves_first)
 
 def start_game(user_sign, computer_sign, computer_moves_first):
+	""" Runs the main game loop. Calls helper functions to draw the board, check for win/draw, makes moves etc
+	Maintains a list of unfilled tiles to help the computer make a random move."""
 	tile_list = [i for i in range(1,10)]
 	sign_to_player_map = {user_sign: "User", computer_sign: "Computer"}
 	unfilled_tile_list = [i for i in range(1, 10)]
+	#These are the only possible winning patterns in tic-tac-toe
 	winning_patterns = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
 
 	draw_board(tile_list)
@@ -61,6 +65,7 @@ def start_game(user_sign, computer_sign, computer_moves_first):
 
 
 def draw_board(tile_list):
+	"""Responsible for drawing the board. Takes in the tile_list and renders it as a board"""
 	print
 	print "*********"
 	for tile_index, tile_value in enumerate(tile_list):
@@ -71,6 +76,7 @@ def draw_board(tile_list):
 	print
 
 def accept_user_move(arg_tuple):
+	"""Accepts valid user input, and makes corresponding move."""
 	tile_list = arg_tuple[0]
 	user_sign = arg_tuple[1]
 	unfilled_tile_list = arg_tuple[2]
@@ -83,6 +89,7 @@ def accept_user_move(arg_tuple):
 	unfilled_tile_list.remove(tile_index)
 
 def make_computer_move(arg_tuple):
+	"""Currently this is the naive version. The computer just makes a random selection from the unfilled squares"""
 	tile_list = arg_tuple[0]
 	computer_sign = arg_tuple[1]
 	unfilled_tile_list = arg_tuple[2]
@@ -92,6 +99,7 @@ def make_computer_move(arg_tuple):
 	unfilled_tile_list.remove(tile_index)
 
 def check_for_win_or_draw(arg_tuple):
+	"""Checks the board for a win/draw. Prints appropriate messages"""
 	tile_list = arg_tuple[0]
 	computer_sign = arg_tuple[1]
 	user_sign = arg_tuple[2]
